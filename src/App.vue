@@ -1,13 +1,16 @@
 <template>
   <div class="containe">
-    <h1>hello world</h1>
+    <Header title="Hello"/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header';
 export default {
   name: "App",
-  components: {},
+  components: {
+    Header,
+  },
 };
 </script>
 
