@@ -1,20 +1,41 @@
 <template>
   <div class="containe">
-    <Header title="All Tasks"/>
+    <Header title="All Tasks" />
+    <AddTask @add-task="addTask"/>
+    <Tasks @double-reminder="doubleReminder" @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
 
 <script>
-import Header from './components/Header';
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 export default {
   name: "App",
   components: {
     Header,
+    Tasks,
+    AddTask
   },
-  data: function() {
+  data: function () {
     return {
-      tasks: []
+      tasks: [],
+    };
+  },
+  methods: {
+    addTask(task) {
+     this.tasks = [...this.tasks, task]
+    }, 
+    deleteTask(id) {
+      if (confirm("Warning")) {
+        this.tasks = this.tasks.filter((task) => task.id !== id);
+      }
+    },
+    doubleReminder(id) {
+      this.tasks = this.tasks.map((task) => task.id === id ? 
+      {...task, reminder: !task.reminder} : task)
     }
+
   },
   created() {
     this.tasks = [
@@ -26,18 +47,18 @@ export default {
       },
       {
         id: 2,
-        text: "task one..",
+        text: "task two..",
         month: "May",
         reminder: false,
       },
       {
         id: 3,
-        text: "task one..",
+        text: "task tree..",
         month: "June",
         reminder: true,
       },
-    ]
-  }
+    ];
+  },
 };
 </script>
 
@@ -52,6 +73,6 @@ export default {
 }
 .btn {
   background-color: blue;
-  color:white;
+  color: white;
 }
 </style>
