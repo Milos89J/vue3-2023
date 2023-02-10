@@ -1,7 +1,10 @@
 <template>
   <div class="containe">
     <Header title="All Tasks" />
-    <AddTask @add-task="addTask"/>
+    <div v-if="showTask">
+      <AddTask @add-task="addTask"/>
+    </div>
+    
     <Tasks @double-reminder="doubleReminder" @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
@@ -20,6 +23,7 @@ export default {
   data: function () {
     return {
       tasks: [],
+      showTask: false
     };
   },
   methods: {
