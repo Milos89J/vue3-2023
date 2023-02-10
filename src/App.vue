@@ -1,7 +1,7 @@
 <template>
   <div class="containe">
     <Header title="All Tasks" />
-    <Tasks @delete-task="deleteTask" :tasks="tasks" />
+    <Tasks @double-reminder="doubleReminder" @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
 
@@ -25,6 +25,11 @@ export default {
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
     },
+    doubleReminder(id) {
+      this.tasks = this.tasks.map((task) => task.id === id ? 
+      {...task, reminder: !task.reminder} : task)
+    }
+
   },
   created() {
     this.tasks = [
