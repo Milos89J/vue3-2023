@@ -1,20 +1,23 @@
 <template>
   <div class="containe">
-    <Header title="All Tasks"/>
+    <Header title="All Tasks" />
+    <Tasks :tasks="tasks" />
   </div>
 </template>
 
 <script>
-import Header from './components/Header';
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
 export default {
   name: "App",
   components: {
     Header,
+    Tasks,
   },
-  data: function() {
+  data: function () {
     return {
-      tasks: []
-    }
+      tasks: [],
+    };
   },
   created() {
     this.tasks = [
@@ -36,8 +39,8 @@ export default {
         month: "June",
         reminder: true,
       },
-    ]
-  }
+    ];
+  },
 };
 </script>
 
@@ -52,6 +55,6 @@ export default {
 }
 .btn {
   background-color: blue;
-  color:white;
+  color: white;
 }
 </style>
