@@ -29,13 +29,13 @@ export default {
       },
       {
         id: 2,
-        text: "task one..",
+        text: "task two..",
         month: "May",
         reminder: false,
       },
       {
         id: 3,
-        text: "task one..",
+        text: "task tree..",
         month: "June",
         reminder: true,
       },
