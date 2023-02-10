@@ -1,7 +1,7 @@
 <template>
   <div class="containe">
-    <Header title="All Tasks" />
-    <div v-if="showTask">
+    <Header @show-task="showAddTask" title="All Tasks" :showTask="showTask" />
+    <div v-show="showTask">
       <AddTask @add-task="addTask"/>
     </div>
     
@@ -27,6 +27,9 @@ export default {
     };
   },
   methods: {
+    showAddTask() {
+        this.showTask = !this.showTask
+    },
     addTask(task) {
      this.tasks = [...this.tasks, task]
     }, 
@@ -38,7 +41,8 @@ export default {
     doubleReminder(id) {
       this.tasks = this.tasks.map((task) => task.id === id ? 
       {...task, reminder: !task.reminder} : task)
-    }
+    },
+    
 
   },
   created() {
