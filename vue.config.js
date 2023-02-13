@@ -11,7 +11,6 @@ module.exports = {
         changeOrigin: true,
         logLevel: 'debug',
         pathRewrite: {'^/api': '/'},
-        lintOnSave: false,
       },
     }
   }
