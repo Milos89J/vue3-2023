@@ -2,10 +2,14 @@
   <div class="containe">
     <Header @show-task="showAddTask" title="All Tasks" :showTask="showTask" />
     <div v-show="showTask">
-      <AddTask @add-task="addTask"/>
+      <AddTask @add-task="addTask" />
     </div>
-    
-    <Tasks @double-reminder="doubleReminder" @delete-task="deleteTask" :tasks="tasks" />
+
+    <Tasks
+      @double-reminder="doubleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
@@ -18,54 +22,41 @@ export default {
   components: {
     Header,
     Tasks,
-    AddTask
+    AddTask,
   },
   data: function () {
     return {
       tasks: [],
-      showTask: false
+      showTask: false,
     };
   },
   methods: {
     showAddTask() {
-        this.showTask = !this.showTask
+      this.showTask = !this.showTask;
     },
     addTask(task) {
-     this.tasks = [...this.tasks, task]
-    }, 
+      this.tasks = [...this.tasks, task];
+    },
     deleteTask(id) {
       if (confirm("Warning")) {
         this.tasks = this.tasks.filter((task) => task.id !== id);
       }
     },
     doubleReminder(id) {
-      this.tasks = this.tasks.map((task) => task.id === id ? 
-      {...task, reminder: !task.reminder} : task)
+      this.tasks = this.tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
-    
+    async fetchTasks() {
+      const res = await fetch('http://localhost:5000/tasks');
 
+      const data = await res.json();
+
+      return data;
+    },
   },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "task one..",
-        month: "July",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "task two..",
-        month: "May",
-        reminder: false,
-      },
-      {
-        id: 3,
-        text: "task tree..",
-        month: "June",
-        reminder: true,
-      },
-    ];
+  async created() {
+    this.tasks = await this.fetchTasks();
   },
 };
 </script>
