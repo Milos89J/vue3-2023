@@ -34,8 +34,17 @@ export default {
     showAddTask() {
       this.showTask = !this.showTask;
     },
-    addTask(task) {
-      this.tasks = [...this.tasks, task];
+    async addTask(task) {
+      const res = await fetch("api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          
+        },
+        body: JSON.stringify(task),
+      });
+      const data = await res.json()
+      this.tasks = [...this.tasks, ];
     },
     deleteTask(id) {
       if (confirm("Warning")) {
@@ -48,7 +57,7 @@ export default {
       );
     },
     async fetchTasks() {
-      const res = await fetch('api/tasks');
+      const res = await fetch("api/tasks");
 
       const data = await res.json();
 
@@ -60,7 +69,7 @@ export default {
       const data = await res.json();
 
       return data;
-    }
+    },
   },
   async created() {
     this.tasks = await this.fetchTasks();
